@@ -16,14 +16,18 @@ class Shape2D(Shape):
 
     def PlotGeneratedPoints(self):
         plt.figure()
-        plt.plot(self._gt_data[0, :], self._gt_data[1, :], ".")
         plt.plot(self._noisy_data[0, :], self._noisy_data[1, :], ".")
+        plt.plot(self._gt_data[0, :], self._gt_data[1, :], ".")
+        plt.title("generator")
+        plt.legend(["noisy_data", "ground_truth"])
         plt.show()
 
     def PlotEstimatedPoints(self, noisy_data: np.ndarray, model: np.ndarray):
         plt.figure()
-        plt.plot(model[0, :], model[1, :], ".")
         plt.plot(noisy_data[0, :], noisy_data[1, :], ".")
+        plt.plot(model[0, :], model[1, :], ".")
+        plt.title("estimator")
+        plt.legend(["noisy_data", "estimated_model"])
         plt.show()
 
     def EstimateModel(self, noisy_data : np.array):
@@ -31,9 +35,3 @@ class Shape2D(Shape):
 
     def Test(self) -> float:
         pass
-
-    def Fit(self, points : np.ndarray):
-        pass
-
-    def CalcError(self, point : np.ndarray, model : np.ndarray):
-        return super().CalcError(point, model)

@@ -37,7 +37,8 @@ class Shape(object):
         pass
 
     def Fit(self, points : np.ndarray):
-        pass
+        self.GeneratePointsInner(points)
+        return self._gt_data
 
     def CalcError(self, point: np.ndarray, model : np.ndarray):
         point_repeated = np.repeat(point, self._num_points, axis=1)

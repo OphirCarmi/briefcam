@@ -20,6 +20,7 @@ def main(config_path, output_path, debug):
             shape_dict = dict()
             params, noisy_data = shape_obj.GeneratePoints()
             shape_dict["name"] = shape_name
+            shape_dict["index"] = i
             shape_dict["params"] = params.tolist()
             shape_dict["noisy_data"] = noisy_data.tolist()
 

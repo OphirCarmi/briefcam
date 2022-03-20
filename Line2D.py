@@ -23,10 +23,3 @@ class Line2D(Shape2D):
 
     def Test(self) -> float:
         pass
-
-    def Fit(self, points: np.ndarray):
-        self.GeneratePointsInner(points)
-        return self._gt_data
-
-    def CalcError(self, point : np.ndarray, model : np.ndarray):
-        return super().CalcError(point, model)
