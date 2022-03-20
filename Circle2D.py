@@ -1,6 +1,7 @@
 import numpy as np
 
 from Shape2D import Shape2D
+from RANSAC_regressor import RANSAC_regressor
 
 
 class Circle2D(Shape2D):
@@ -14,13 +15,14 @@ class Circle2D(Shape2D):
         return np.array([x_center, y_center, r]), self._noisy_data
 
     def EstimateModel(self, noisy_data : np.array):
-        pass
+        self._RANSAC_regressor = RANSAC_regressor(3, self.Fit, self.CalcError, self._num_points / 10)
+        return self._RANSAC_regressor.Run(noisy_data)
 
     def Test(self) -> float:
         pass
 
-    def Fit(self):
+    def Fit(self, points : np.ndarray):
         pass
 
-    def CalcError(self):
+    def CalcError(self, point : np.ndarray, model : np.ndarray):
         pass

@@ -20,14 +20,20 @@ class Shape2D(Shape):
         plt.plot(self._noisy_data[0, :], self._noisy_data[1, :], ".")
         plt.show()
 
+    def PlotEstimatedPoints(self, noisy_data: np.ndarray, model: np.ndarray):
+        plt.figure()
+        plt.plot(model[0, :], model[1, :], ".")
+        plt.plot(noisy_data[0, :], noisy_data[1, :], ".")
+        plt.show()
+
     def EstimateModel(self, noisy_data : np.array):
         pass
 
     def Test(self) -> float:
         pass
 
-    def Fit(self):
+    def Fit(self, points : np.ndarray):
         pass
 
-    def CalcError(self):
-        pass
+    def CalcError(self, point : np.ndarray, model : np.ndarray):
+        return super().CalcError(point, model)

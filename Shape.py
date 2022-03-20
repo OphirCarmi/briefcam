@@ -8,6 +8,7 @@ class Shape(object):
         self._dim = 0
         self._gt_data = None
         self._noisy_data = None
+        self._RANSAC_regressor = None
 
     def GeneratePoints(self):
         separator = int(self._num_points * 0.8)
@@ -26,7 +27,7 @@ class Shape(object):
     def EstimateModel(self, noisy_data : np.array):
         pass
 
-    def PlotEstimatedPoints(self) -> np.ndarray:
+    def PlotEstimatedPoints(self, noisy_data: np.ndarray, model: np.ndarray):
         pass
 
     def Test(self) -> float:
@@ -35,8 +36,12 @@ class Shape(object):
     def PlotTest(self):
         pass
 
-    def Fit(self):
+    def Fit(self, points : np.ndarray):
         pass
 
-    def CalcError(self):
-        pass
+    def CalcError(self, point: np.ndarray, model : np.ndarray):
+        point_repeated = np.repeat(point, self._num_points, axis=1)
+        err_sqr = (point_repeated - model)**2
+        amin_err = np.amin(np.sum(err_sqr, axis=0))
+        return amin_err
+

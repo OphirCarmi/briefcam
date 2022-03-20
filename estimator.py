@@ -9,10 +9,15 @@ def main(input_path, output_path, debug):
         data = json.load(f)
         for shape_dict in data:
             shape_name = shape_dict["name"]
-            params = shape_dict["params"]
             noisy_data = np.array([np.array(x) for x in shape_dict["noisy_data"]])
-            shape = SHAPES[shape_name](noisy_data.shape[1], 0)
-            shape.EstimateModel(noisy_data)
+            if shape_name in SHAPES:
+                shape = SHAPES[shape_name](noisy_data.shape[1], 0)
+                model = shape.EstimateModel(noisy_data)
+                if model is None:
+                    print("couldn't estimate model")
+                    continue
+                if debug:
+                    shape.PlotEstimatedPoints(noisy_data, model)
 
 
 if __name__ == "__main__":

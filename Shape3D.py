@@ -19,8 +19,8 @@ class Shape2D(Shape):
     def Test(self) -> float:
         pass
 
-    def Fit(self):
+    def Fit(self, points : np.ndarray):
         pass
 
-    def CalcError(self):
+    def CalcError(self, point : np.ndarray, model : np.ndarray):
         pass

@@ -1,26 +1,32 @@
 import numpy as np
 
 from Shape2D import Shape2D
+from RANSAC_regressor import RANSAC_regressor
 
 
 class Line2D(Shape2D):
     def GeneratePoints(self):
         end_points = np.random.rand(self._dim, self._dim)
-        gt_x = np.linspace(end_points[0, 0], end_points[1, 0], self._num_points)
-        gt_y = np.linspace(end_points[0, 1], end_points[1, 1], self._num_points)
+        return self.GeneratePointsInner(end_points)
+
+    def GeneratePointsInner(self, points):
+        gt_x = np.linspace(points[0, 0], points[1, 0], self._num_points)
+        gt_y = np.linspace(points[0, 1], points[1, 1], self._num_points)
         self._gt_data = np.vstack([gt_x, gt_y])
         super().GeneratePoints()
 
-        return end_points, self._noisy_data
+        return points, self._noisy_data
 
     def EstimateModel(self, noisy_data : np.array):
-        pass
+        self._RANSAC_regressor = RANSAC_regressor(2, self.Fit, self.CalcError, self._num_points / 20)
+        return self._RANSAC_regressor.Run(noisy_data)
 
     def Test(self) -> float:
         pass
 
-    def Fit(self):
-        pass
+    def Fit(self, points: np.ndarray):
+        self.GeneratePointsInner(points)
+        return self._gt_data
 
-    def CalcError(self):
-        pass
+    def CalcError(self, point : np.ndarray, model : np.ndarray):
+        return super().CalcError(point, model)
