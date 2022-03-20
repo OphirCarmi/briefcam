@@ -12,7 +12,7 @@ class Shape2D(Shape):
         self._noisy_data = np.zeros((num_points, self._dim))
 
     def GeneratePoints(self):
-        pass
+        super().GeneratePoints()
 
     def PlotGeneratedPoints(self):
         plt.figure()

@@ -11,7 +11,18 @@ class Shape(object):
         self._noisy_data = None
 
     def GeneratePoints(self):
-        pass
+        separator = int(self._num_points * 0.8)
+        self._noisy_data = np.zeros(self._gt_data.shape)
+
+        shuffeled_indices = list(range(self._num_points))
+        np.random.shuffle(shuffeled_indices)
+
+        # inliers
+        self._noisy_data[:, :separator] = self._gt_data[:, shuffeled_indices[:separator]] + np.random.randn(self._dim,
+                                                                                         separator) * self._randomness
+        # outliers
+        self._noisy_data[:, separator:] = self._gt_data[:, shuffeled_indices[separator:]] + np.random.randn(self._dim,
+                                                                                         self._num_points - separator)
 
     def EstimateModel(self):
         pass

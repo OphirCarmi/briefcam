@@ -10,7 +10,7 @@ class Circle2D(Shape2D):
         gt_x = x_center + r * np.cos(angle)
         gt_y = y_center + r * np.sin(angle)
         self._gt_data = np.vstack([gt_x, gt_y])
-        self._noisy_data = self._gt_data + np.random.randn(self._dim, self._num_points) * self._randomness
+        super().GeneratePoints()
 
     def EstimateModel(self):
         pass
