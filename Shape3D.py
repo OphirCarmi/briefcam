@@ -13,7 +13,7 @@ class Shape2D(Shape):
     def GeneratePoints(self):
         pass
 
-    def EstimateModel(self):
+    def EstimateModel(self, noisy_data : np.array):
         pass
 
     def Test(self) -> float:

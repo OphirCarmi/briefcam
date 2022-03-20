@@ -1,13 +1,6 @@
 import json
 
-from Shape import Shape
-from Line2D import Line2D
-from Circle2D import Circle2D
-
-SHAPES = {
-    "Line2D" : Line2D,
-    "Circle2D" : Circle2D
-}
+from Shapes import SHAPES
 
 
 def main(config_path, output_path, debug):
@@ -19,12 +12,28 @@ def main(config_path, output_path, debug):
     for shape, num in config_data["shapes"].items():
         for i in range(num):
             if shape in SHAPES:
-                shapes.append(SHAPES[shape](num_points, randomness, debug))
+                shapes.append((shape, SHAPES[shape](num_points, randomness)))
 
-    for shape in shapes:
-        shape.GeneratePoints()
-        if debug:
-            shape.PlotGeneratedPoints()
+    with open(output_path, "w") as f:
+        f.write("[\n")
+        for i, (shape_name, shape_obj) in enumerate(shapes):
+            shape_dict = dict()
+            params, noisy_data = shape_obj.GeneratePoints()
+            shape_dict["name"] = shape_name
+            shape_dict["params"] = params.tolist()
+            shape_dict["noisy_data"] = noisy_data.tolist()
+
+            json_str = json.dumps(shape_dict)
+            f.write(json_str)
+
+            if i < len(shapes) - 1:
+                f.write(",\n")
+            else:
+                f.write("\n")
+
+            if debug:
+                shape_obj.PlotGeneratedPoints()
+        f.write("]\n")
 
 
 if __name__ == "__main__":

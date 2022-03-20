@@ -2,10 +2,9 @@ import numpy as np
 
 
 class Shape(object):
-    def __init__(self, num_points: int, randomness: float, debug: bool):
+    def __init__(self, num_points: int, randomness: float):
         self._num_points = num_points
         self._randomness = randomness
-        self._debug = debug
         self._dim = 0
         self._gt_data = None
         self._noisy_data = None
@@ -24,7 +23,7 @@ class Shape(object):
         self._noisy_data[:, separator:] = self._gt_data[:, shuffeled_indices[separator:]] + np.random.randn(self._dim,
                                                                                          self._num_points - separator)
 
-    def EstimateModel(self):
+    def EstimateModel(self, noisy_data : np.array):
         pass
 
     def PlotEstimatedPoints(self) -> np.ndarray:

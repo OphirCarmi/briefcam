@@ -11,8 +11,9 @@ class Circle2D(Shape2D):
         gt_y = y_center + r * np.sin(angle)
         self._gt_data = np.vstack([gt_x, gt_y])
         super().GeneratePoints()
+        return np.array([x_center, y_center, r]), self._noisy_data
 
-    def EstimateModel(self):
+    def EstimateModel(self, noisy_data : np.array):
         pass
 
     def Test(self) -> float:

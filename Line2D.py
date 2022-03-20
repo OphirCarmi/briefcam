@@ -11,7 +11,9 @@ class Line2D(Shape2D):
         self._gt_data = np.vstack([gt_x, gt_y])
         super().GeneratePoints()
 
-    def EstimateModel(self):
+        return end_points, self._noisy_data
+
+    def EstimateModel(self, noisy_data : np.array):
         pass
 
     def Test(self) -> float:
