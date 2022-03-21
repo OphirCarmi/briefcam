@@ -18,7 +18,7 @@ def main(config_path, output_path, debug):
         f.write("[\n")
         for i, (shape_name, shape_obj) in enumerate(shapes):
             shape_dict = dict()
-            params, noisy_data = shape_obj.GeneratePoints()
+            params, noisy_data = shape_obj.generate_points()
             shape_dict["name"] = shape_name
             shape_dict["params"] = params.tolist()
             shape_dict["noisy_data"] = noisy_data.tolist()
@@ -32,7 +32,7 @@ def main(config_path, output_path, debug):
                 f.write("\n")
 
             if debug:
-                shape_obj.PlotGeneratedPoints()
+                shape_obj.plot_generated_points()
         f.write("]\n")
 
 

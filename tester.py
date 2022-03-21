@@ -26,7 +26,7 @@ def main(gt_input_path, est_input_path, output_path, debug):
                     num_points = shape_est["num_points"]
                     if shape_name in SHAPES:
                         shape = SHAPES[shape_name](num_points, 0)
-                        distance = shape.Test(gt_params, estimated_model)
+                        distance = shape.test(gt_params, estimated_model)
                         shape_test = dict()
                         shape_test["name"] = shape_name
                         shape_test["distance"] = distance
@@ -36,7 +36,7 @@ def main(gt_input_path, est_input_path, output_path, debug):
                         out_f.write(json_str)
                         k += 1
                         if debug:
-                            shape.PlotTest(gt_params, estimated_model, noisy_data, distance)
+                            shape.plot_test(gt_params, estimated_model, noisy_data, distance)
 
         out_f.write("\n]\n")
 

@@ -12,13 +12,13 @@ class Shape3D(Shape):
         self._gt_data = np.zeros((num_points, self._dim))
         self._noisy_data = np.zeros((num_points, self._dim))
 
-    def GeneratePoints(self):
-        super().GeneratePoints()
+    def generate_points(self):
+        super().generate_points()
 
-    def GeneratePointsInner(self, points):
+    def generate_points_inner(self, points):
         pass
 
-    def PlotGeneratedPoints(self):
+    def plot_generated_points(self):
         plt.figure()
         ax = plt.axes(projection="3d")
         ax.plot3D(self._noisy_data[0, :], self._noisy_data[1, :], self._noisy_data[2, :], ".")
@@ -27,26 +27,26 @@ class Shape3D(Shape):
         plt.legend(["noisy_data", "ground_truth"])
         plt.show()
 
-    def PlotEstimatedPoints(self, noisy_data: np.ndarray, model: np.ndarray):
+    def plot_estimated_points(self, noisy_data: np.ndarray, model: np.ndarray):
         plt.figure()
         ax = plt.axes(projection="3d")
         ax.plot3D(noisy_data[0, :], noisy_data[1, :], noisy_data[2, :], ".")
-        self.GeneratePointsInner(model)
+        self.generate_points_inner(model)
         ax.plot3D(self._gt_data[0, :], self._gt_data[1, :], self._gt_data[2, :], ".")
         plt.title("estimator")
         plt.legend(["noisy_data", "estimated_model"])
         plt.show()
 
-    def EstimateModel(self, noisy_data : np.array):
+    def estimate_model(self, noisy_data : np.array):
         pass
 
-    def PlotTest(self, gt_model: np.array, estimated_model: np.array, noisy_data: np.array, distance: float):
+    def plot_test(self, gt_model: np.array, estimated_model: np.array, noisy_data: np.array, distance: float):
         plt.figure()
         ax = plt.axes(projection="3d")
         ax.plot3D(noisy_data[0, :], noisy_data[1, :], noisy_data[2, :], ".")
-        self.GeneratePointsInner(gt_model)
+        self.generate_points_inner(gt_model)
         ax.plot3D(self._gt_data[0, :], self._gt_data[1, :], self._gt_data[2, :], ".")
-        self.GeneratePointsInner(estimated_model)
+        self.generate_points_inner(estimated_model)
         ax.plot3D(self._gt_data[0, :], self._gt_data[1, :], self._gt_data[2, :], ".")
         plt.title("test - distance = {}".format(distance))
         plt.legend(["noisy_data", "gt_model", "estimated_model"])

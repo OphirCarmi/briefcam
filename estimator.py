@@ -20,9 +20,9 @@ def main(input_path, output_path, debug):
                 if shape_name in SHAPES:
                     num_points = noisy_data.shape[1]
                     shape = SHAPES[shape_name](num_points, 0)
-                    model = shape.EstimateModel(noisy_data)
+                    model = shape.estimate_model(noisy_data)
                     if debug:
-                        shape.PlotEstimatedPoints(noisy_data, model)
+                        shape.plot_estimated_points(noisy_data, model)
                     if k > 0:
                         out_f.write(",\n")
                     del shape_dict["params"]
