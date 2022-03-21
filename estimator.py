@@ -18,7 +18,8 @@ def main(input_path, output_path, debug):
                 shape_name = shape_dict["name"]
                 noisy_data = np.array([np.array(x) for x in shape_dict["noisy_data"]])
                 if shape_name in SHAPES:
-                    shape = SHAPES[shape_name](noisy_data.shape[1], 0)
+                    num_points = noisy_data.shape[1]
+                    shape = SHAPES[shape_name](num_points, 0)
                     model = shape.EstimateModel(noisy_data)
                     if debug:
                         shape.PlotEstimatedPoints(noisy_data, model)
@@ -28,6 +29,7 @@ def main(input_path, output_path, debug):
                     del shape_dict["noisy_data"]
 
                     shape_dict["estimated_model"] = model.tolist()
+                    shape_dict["num_points"] = num_points
                     json_str = json.dumps(shape_dict)
                     out_f.write(json_str)
                     k += 1

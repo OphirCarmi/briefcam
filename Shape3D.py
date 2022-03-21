@@ -15,6 +15,3 @@ class Shape2D(Shape):
 
     def EstimateModel(self, noisy_data : np.array):
         pass
-
-    def Test(self) -> float:
-        pass

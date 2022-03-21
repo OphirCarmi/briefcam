@@ -30,19 +30,21 @@ class Shape(object):
     def PlotEstimatedPoints(self, noisy_data: np.ndarray, model: np.ndarray):
         pass
 
-    def Test(self) -> float:
-        pass
-
-    def PlotTest(self):
-        pass
+    def Test(self, gt_model : list, estimated_model : list) -> float:
+        gt_points = self.Fit(gt_model)
+        est_points = self.Fit(estimated_model)
+        sum_err = 0
+        for ind in range(self._num_points):
+            sum_err += self.CalcError(np.expand_dims(est_points[:, ind], axis=1), gt_points)
+        return sum_err
 
     def Fit(self, points : np.ndarray):
         self.GeneratePointsInner(points)
         return self._gt_data
 
-    def CalcError(self, point: np.ndarray, model : np.ndarray):
+    def CalcError(self, point: np.ndarray, model_points : np.ndarray):
         point_repeated = np.repeat(point, self._num_points, axis=1)
-        err_sqr = (point_repeated - model)**2
+        err_sqr = (point_repeated - model_points)**2
         amin_err = np.amin(np.sum(err_sqr, axis=0))
         return amin_err
 

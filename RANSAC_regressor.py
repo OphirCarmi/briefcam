@@ -40,7 +40,7 @@ class RANSAC_regressor:
             this_err = sum([self._calc_error(np.expand_dims(data[:, x], axis=1), maybe_model) for x in all_inliers])
             this_err /= (len_inliers**2)
             if this_err < best_err:
-                best_fit = maybe_model
+                best_fit = data[:, maybe_inliers]
                 best_err = this_err
 
         return best_fit

@@ -20,6 +20,3 @@ class Line2D(Shape2D):
     def EstimateModel(self, noisy_data : np.array):
         self._RANSAC_regressor = RANSAC_regressor(2, self.Fit, self.CalcError, self._num_points / 20)
         return self._RANSAC_regressor.Run(noisy_data)
-
-    def Test(self) -> float:
-        pass

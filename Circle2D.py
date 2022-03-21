@@ -48,6 +48,3 @@ class Circle2D(Shape2D):
         self._RANSAC_regressor = RANSAC_regressor(3, self.Fit, self.CalcError, self._num_points / 10)
         return self._RANSAC_regressor.Run(noisy_data)
 
-    def Test(self) -> float:
-        pass
-
