@@ -5,32 +5,33 @@ from Shapes import SHAPES
 
 
 def main(input_path, output_path, debug):
-    with open(input_path) as f:
-        data = json.load(f)
-    with open(output_path, "w") as f:
-        f.write("[\n")
-        k = 0
-        for i, shape_dict in enumerate(data):
-            shape_name = shape_dict["name"]
-            noisy_data = np.array([np.array(x) for x in shape_dict["noisy_data"]])
-            if shape_name in SHAPES:
-                shape = SHAPES[shape_name](noisy_data.shape[1], 0)
-                model = shape.EstimateModel(noisy_data)
-                if model is None:
-                    print("couldn't estimate model")
-                    continue
-                if debug:
-                    shape.PlotEstimatedPoints(noisy_data, model)
-                if k > 0:
-                    f.write(",\n")
-                del shape_dict["params"]
-                del shape_dict["noisy_data"]
+    with open(input_path) as in_f:
+        next(in_f)
+        with open(output_path, "w") as out_f:
+            out_f.write("[\n")
+            k = 0
+            for line in in_f:
+                if line.startswith("]"):
+                    break
+                line = line.rstrip(",\n")
+                shape_dict = json.loads(line)
+                shape_name = shape_dict["name"]
+                noisy_data = np.array([np.array(x) for x in shape_dict["noisy_data"]])
+                if shape_name in SHAPES:
+                    shape = SHAPES[shape_name](noisy_data.shape[1], 0)
+                    model = shape.EstimateModel(noisy_data)
+                    if debug:
+                        shape.PlotEstimatedPoints(noisy_data, model)
+                    if k > 0:
+                        out_f.write(",\n")
+                    del shape_dict["params"]
+                    del shape_dict["noisy_data"]
 
-                shape_dict["estimated_model"] = model.tolist()
-                json_str = json.dumps(shape_dict)
-                f.write(json_str)
-                k += 1
-        f.write("\n]\n")
+                    shape_dict["estimated_model"] = model.tolist()
+                    json_str = json.dumps(shape_dict)
+                    out_f.write(json_str)
+                    k += 1
+            out_f.write("\n]\n")
 
 
 if __name__ == "__main__":

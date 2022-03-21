@@ -2,7 +2,7 @@ import numpy as np
 
 
 class RANSAC_regressor:
-    def __init__(self, n, get_model, calc_error, d, t=0.0002, k=200):
+    def __init__(self, n, get_model, calc_error, d, t=0.0002, k=100):
         self._k = k
         self._n = n
         self._t = t
@@ -34,14 +34,13 @@ class RANSAC_regressor:
                     also_inliers.append(also_inlier_ind)
 
             maybe_inliers = maybe_inliers.tolist()
-            len_inliers = len(also_inliers)
-            if len_inliers > self._d:
-                # This implies that we may have found a good model now test how good it is.
-                all_inliers = maybe_inliers + also_inliers
-                this_err = sum([self._calc_error(np.expand_dims(data[:, x], axis=1), maybe_model) for x in all_inliers])
-                this_err /= (len_inliers**2)
-                if this_err < best_err:
-                    best_fit = maybe_model
-                    best_err = this_err
+            # This implies that we may have found a good model now test how good it is.
+            all_inliers = maybe_inliers + also_inliers
+            len_inliers = len(all_inliers)
+            this_err = sum([self._calc_error(np.expand_dims(data[:, x], axis=1), maybe_model) for x in all_inliers])
+            this_err /= (len_inliers**2)
+            if this_err < best_err:
+                best_fit = maybe_model
+                best_err = this_err
 
         return best_fit
