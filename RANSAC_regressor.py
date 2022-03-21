@@ -2,7 +2,7 @@ import numpy as np
 
 
 class RANSAC_regressor:
-    def __init__(self, n, get_model, calc_error, d, t=0.0002, k=100):
+    def __init__(self, n, get_model, calc_error, d, t=0.2, k=200):
         self._k = k
         self._n = n
         self._t = t
