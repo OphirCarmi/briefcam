@@ -21,7 +21,7 @@ class Shape2D(Shape):
         plt.figure()
         plt.plot(self._noisy_data[0, :], self._noisy_data[1, :], ".")
         plt.plot(self._gt_data[0, :], self._gt_data[1, :], ".")
-        plt.title("generator")
+        plt.title("generator - {}".format(self._shape_name))
         plt.legend(["noisy_data", "ground_truth"])
         plt.show()
 
@@ -30,7 +30,7 @@ class Shape2D(Shape):
         plt.plot(noisy_data[0, :], noisy_data[1, :], ".")
         self.generate_points_inner(model)
         plt.plot(self._gt_data[0, :], self._gt_data[1, :], ".")
-        plt.title("estimator")
+        plt.title("estimator - {}".format(self._shape_name))
         plt.legend(["noisy_data", "estimated_model"])
         plt.show()
 
@@ -44,6 +44,6 @@ class Shape2D(Shape):
         plt.plot(self._gt_data[0, :], self._gt_data[1, :], ".")
         self.generate_points_inner(estimated_model)
         plt.plot(self._gt_data[0, :], self._gt_data[1, :], ".")
-        plt.title("test - distance = {}".format(distance))
+        plt.title("test - {} - distance = {}".format(self._shape_name, distance))
         plt.legend(["noisy_data", "gt_model", "estimated_model"])
         plt.show()

@@ -23,7 +23,7 @@ class Shape3D(Shape):
         ax = plt.axes(projection="3d")
         ax.plot3D(self._noisy_data[0, :], self._noisy_data[1, :], self._noisy_data[2, :], ".")
         ax.plot3D(self._gt_data[0, :], self._gt_data[1, :], self._gt_data[2, :], ".")
-        plt.title("generator")
+        plt.title("generator - {}".format(self._shape_name))
         plt.legend(["noisy_data", "ground_truth"])
         plt.show()
 
@@ -33,7 +33,7 @@ class Shape3D(Shape):
         ax.plot3D(noisy_data[0, :], noisy_data[1, :], noisy_data[2, :], ".")
         self.generate_points_inner(model)
         ax.plot3D(self._gt_data[0, :], self._gt_data[1, :], self._gt_data[2, :], ".")
-        plt.title("estimator")
+        plt.title("estimator - {}".format(self._shape_name))
         plt.legend(["noisy_data", "estimated_model"])
         plt.show()
 
@@ -48,6 +48,6 @@ class Shape3D(Shape):
         ax.plot3D(self._gt_data[0, :], self._gt_data[1, :], self._gt_data[2, :], ".")
         self.generate_points_inner(estimated_model)
         ax.plot3D(self._gt_data[0, :], self._gt_data[1, :], self._gt_data[2, :], ".")
-        plt.title("test - distance = {}".format(distance))
+        plt.title("test - {} - distance = {}".format(self._shape_name, distance))
         plt.legend(["noisy_data", "gt_model", "estimated_model"])
         plt.show()

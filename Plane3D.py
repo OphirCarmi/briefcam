@@ -5,6 +5,10 @@ from RANSAC_regressor import RANSAC_regressor
 
 
 class Plane3D(Shape3D):
+    def __init__(self, num_points: int, randomness: float):
+        super().__init__(num_points, randomness)
+        self._shape_name = "Plane3D"
+
     def generate_points(self):
         end_points = np.random.rand(self._dim, 3)
         return self.generate_points_inner(end_points)

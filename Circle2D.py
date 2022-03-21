@@ -18,6 +18,10 @@ def determinant(A):
 
 
 class Circle2D(Shape2D):
+    def __init__(self, num_points: int, randomness: float):
+        super().__init__(num_points, randomness)
+        self._shape_name = "Circle2D"
+
     def generate_points(self):
         points = np.random.rand(self._dim, 3)
         return self.generate_points_inner(points)
