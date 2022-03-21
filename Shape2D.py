@@ -36,3 +36,14 @@ class Shape2D(Shape):
 
     def EstimateModel(self, noisy_data : np.array):
         pass
+
+    def PlotTest(self, gt_model: np.array, estimated_model: np.array, noisy_data: np.array, distance: float):
+        plt.figure()
+        plt.plot(noisy_data[0, :], noisy_data[1, :], ".")
+        self.GeneratePointsInner(gt_model)
+        plt.plot(self._gt_data[0, :], self._gt_data[1, :], ".")
+        self.GeneratePointsInner(estimated_model)
+        plt.plot(self._gt_data[0, :], self._gt_data[1, :], ".")
+        plt.title("test - distance = {}".format(distance))
+        plt.legend(["noisy_data", "gt_model", "estimated_model"])
+        plt.show()

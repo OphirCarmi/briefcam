@@ -22,7 +22,7 @@ def main(gt_input_path, est_input_path, output_path, debug):
                     shape_name = shape_gt["name"]
                     estimated_model = np.array([np.array(x) for x in shape_est["estimated_model"]])
                     gt_params = np.array([np.array(x) for x in shape_gt["params"]])
-                    noisy_data = shape_gt["noisy_data"]
+                    noisy_data = np.array([np.array(x) for x in shape_gt["noisy_data"]])
                     num_points = shape_est["num_points"]
                     if shape_name in SHAPES:
                         shape = SHAPES[shape_name](num_points, 0)
@@ -35,6 +35,8 @@ def main(gt_input_path, est_input_path, output_path, debug):
                             out_f.write(",\n")
                         out_f.write(json_str)
                         k += 1
+                        if debug:
+                            shape.PlotTest(gt_params, estimated_model, noisy_data, distance)
 
         out_f.write("\n]\n")
 
